@@ -184,4 +184,4 @@ def add_footer(ax, text):
 Issues and pull requests welcome.
 
 **Alex McAnnally**  
-amcannally.cloud • 205-936-5024
+www.amcannally.cloud • 205-936-5024
