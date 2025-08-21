@@ -50,20 +50,15 @@ kimberly-public-data-snapshot/
 ├─ .gitignore
 ├─ charts/                # generated PNGs (safe to commit)
 ├─ data/
-│  ├─ raw/                # put source CSVs here (not committed)
-│  └─ processed/          # small derived CSVs (ok to commit)
 ├─ notebooks/
 │  ├─ Kimberly_HomeValuations.ipynb
 │  └─ Kimberly_EduStats.ipynb
 └─ outputs/               # optional PDFs/HTML exports
 ```
 
-> `.gitignore` excludes `data/raw/**` and notebook checkpoints so raw files aren’t committed.
-
-
 ---
 
-## Data you need (place files in `data/raw/`)
+## Data you need
 
 ### Housing — Zillow ZHVI (ZIP level)
 - File(s): ZIP-level ZHVI monthly time series (typical home value)  
@@ -85,7 +80,7 @@ CSV exports for:
 
 ---
 
-## Notebook behavior (what each one does)
+## Notebook behavior
 
 ### `notebooks/Kimberly_HomeValuations.ipynb`
 - Loads Zillow ZHVI ZIP-level CSV(s) from `data/raw/`
@@ -106,7 +101,7 @@ CSV exports for:
 
 ---
 
-## Bootstrap cell (included at top of notebooks)
+## Bootstrap cell
 
 ```python
 # Cell 0 — bootstrap folders & paths (safe to re-run)
