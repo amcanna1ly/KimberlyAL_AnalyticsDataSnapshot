@@ -50,6 +50,8 @@ kimberly-public-data-snapshot/
 ├─ .gitignore
 ├─ charts/                # generated PNGs (safe to commit)
 ├─ data/
+│  ├─ processed
+│  └─ raw 
 ├─ notebooks/
 │  ├─ Kimberly_HomeValuations.ipynb
 │  └─ Kimberly_EduStats.ipynb
