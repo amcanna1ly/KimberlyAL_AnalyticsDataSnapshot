@@ -1,0 +1,10 @@
+# data
+data/raw/**
+*.zip
+
+# notebooks
+.ipynb_checkpoints/
+
+# OS/editor
+.DS_Store
+Thumbs.db

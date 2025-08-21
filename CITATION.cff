@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: Kimberly, AL — Public Data Snapshot
+message: If you use this repository, please cite it as below.
+type: software
+authors:
+  - family-names: McAnnally
+    given-names: Alex
+license: MIT
+version: "v1.0.0"
+date-released: "2025-08-21"
+repository-code: https://github.com/yourusername/kimberly-public-data-snapshot
+keywords:
+  - Kimberly AL
+  - Zillow ZHVI
+  - ALSDE
+  - Public data
+  - Jupyter
