@@ -1,0 +1,4 @@
+ZCTA,label,NAME,population,under_18_pct,age_65plus_pct,male_pct,female_pct,median_hh_income,labor_force_pct,unemp_rate_pct,owner_occ_pct,median_home_value,median_gross_rent
+35091,Kimberly (35091),ZCTA5 35091,3632,25.6,13.0,46.8,53.2,93444,76.9,2.1,94.3,284900,889
+35116,Morris (35116),ZCTA5 35116,4912,26.2,15.8,47.6,52.4,98990,65.4,2.4,92.3,228200,844
+35180,Warrior (35180),ZCTA5 35180,14097,27.4,16.4,50.2,49.8,71281,57.2,5.3,85.9,198600,895
