@@ -1,189 +1,113 @@
-# Kimberly, AL — Public Data Snapshot (v1)
+Kimberly, AL — Public Data Snapshot
+=================================================
 
-Neutral, replicable charts built from public sources so neighbors can see Kimberly’s trajectory.
+Neutral, replicable charts from public datasets so neighbors can see Kimberly’s trajectory.
 
-**Focus (v1):**
-- **Housing:** ZIP 35091 (plus 35116/35180 for context) — Zillow ZHVI 2000–2025  
-- **Education (Mortimer Jordan HS):** Graduation, College & Career Readiness (CCR), Academic Growth, Educator Experience — ALSDE 2024  
-- **Next:** ACS demographics (planned for v2)
+What’s inside
+-------------
+- Housing (Zillow ZHVI, ZIP level): 35091 with 35116/35180 for context (2000–2025).
+- Education (ALSDE 2024): Mortimer Jordan HS — Graduation, College & Career Readiness (CCR), Academic Growth, Educator Experience.
+- Demographics & Economics (ACS 5-yr 2023 via API): Population, age mix, median household income, labor force %, unemployment %, owner-occupied %, median home value, median rent for ZCTAs 35091/35116/35180.
 
-**Outputs:** high-resolution PNG charts + small, shareable CSVs (derived).
+Outputs: small CSVs + high-resolution PNG charts, ready for posts and slides.
 
-_Last updated: Aug 21, 2025_
+Last updated: Aug 22, 2025
 
+Quickstart
+----------
+1) Setup
+   - macOS/Linux
+     python3 -m venv .venv && source .venv/bin/activate
+     pip install -r requirements.txt
 
----
+   - Windows PowerShell
+     py -m venv .venv
+     . .venv/Scripts/Activate.ps1
+     pip install -r requirements.txt
 
-## Quickstart (≈5 min)
+   Optional: set a Census API key to avoid rate limits
+     macOS/Linux: export CENSUS_KEY=YOUR_KEY_HERE
+     Windows PS:  $env:CENSUS_KEY="YOUR_KEY_HERE"
 
-1) **Create & activate a clean Python env**
-```bash
-# Windows (PowerShell)
-py -m venv .venv
-. .venv/Scripts/Activate.ps1
-pip install -r requirements.txt
-```
+2) Generate ACS ZIP snapshot (CSV + charts)
+   python acs_zip_snapshot.py --zips 35091 35116 35180 --labels "Kimberly (35091),Morris (35116),Warrior (35180)" --outdir charts
 
-2) **Launch Jupyter**
-```bash
-pip install jupyter
-jupyter notebook
-```
+3) Open notebooks (optional)
+   pip install jupyter
+   jupyter notebook
+   - notebooks/Kimberly_HomeValuations.ipynb
+   - notebooks/Kimberly_EduStats.ipynb
 
-3) **Open & run notebooks**
-- `notebooks/Kimberly_HomeValuations.ipynb`
-- `notebooks/Kimberly_EduStats.ipynb`
-
-The first cell in each notebook creates folders and sets paths.  
-Place source CSVs in `data/raw/` (see **Data you need** below), then **Run All**.  
-Charts land in `charts/` and derived CSVs in `data/processed/`.
-
-
----
-
-## Repo layout
-
-```
-kimberly-public-data-snapshot/
+Repository layout
+-----------------
+KimberlyAL_AnalyticsDataSnapshot/
 ├─ README.md
 ├─ requirements.txt
-├─ .gitignore
-├─ charts/                # generated PNGs (safe to commit)
+├─ acs_zip_snapshot.py          # ACS API script (creates CSVs + PNGs)
+├─ charts/                      # generated outputs (safe to commit)
 ├─ data/
-│  ├─ processed
-│  └─ raw 
-├─ notebooks/
-│  ├─ Kimberly_HomeValuations.ipynb
-│  └─ Kimberly_EduStats.ipynb
-└─ outputs/               # optional PDFs/HTML exports
-```
+│  ├─ raw/                      # optional if using flat files
+│  └─ processed/                # tidy CSVs written by notebooks
+└─ notebooks/
+   ├─ Kimberly_HomeValuations.ipynb
+   └─ Kimberly_EduStats.ipynb
 
----
+ACS ZIP snapshot (what it does)
+-------------------------------
+Fetches ACS 5-year Data Profile metrics for ZCTAs and writes:
+- CSV: acs_{YEAR}_profile_ZCTA_35091_35116_35180.csv
+- Charts:
+  - acs_pop.png — Total population
+  - acs_income.png — Median household income
+  - acs_home_value.png — Median home value (owner-occupied)
+  - acs_unemployment.png — Unemployment rate
 
-## Data you need
+Labels on charts use friendly names (e.g., “Kimberly (35091)”).
+Note: ZCTAs are the Census ZIP-based areas and may not match exact city limits.
 
-### Housing — Zillow ZHVI (ZIP level)
-- File(s): ZIP-level ZHVI monthly time series (typical home value)  
-- ZIPs: **35091** (Kimberly), **35116** (Morris), **35180** (Warrior)  
-- Note: ZIP areas ≠ city boundaries; used here for market-trend context.
+Optional:
+  python acs_zip_snapshot.py --include-decennial-growth
+  (also fetches 2010→2020 Decennial population change and charts it)
 
-### Education — ALSDE Supporting Data (2024)
-CSV exports for:
-- **Accountability** (includes **Graduation Rate**, **College & Career Readiness**, **Academic Growth**, **Chronic Absenteeism**)  
-- **Educator Credentials/Experienced** (experienced vs novice/total)  
-- *(Optional)* CCR/Grad Rate file (not required since Accountability already includes Grad/CCR)
+Notebooks (summary)
+-------------------
+Kimberly_HomeValuations.ipynb
+- Loads Zillow ZHVI ZIP-level data and builds a 2000–2025 line chart for 35091/35116/35180.
+- Figure notes clarify “ZIP-level (not city boundary).”
 
-**Guardrail:** If an export shows `SystemCode=000 / SchoolCode=0000`, it’s **statewide-only** and will not include MJHS rows. Re-export either:
-- **All Systems / All Schools** (then filter in the notebook), or  
-- **System = Jefferson County** and **School = Mortimer Jordan HS**.
+Kimberly_EduStats.ipynb
+- Uses ALSDE Supporting Data (2024). Filters to System = Jefferson County and School = Mortimer Jordan High School, “All” groups.
+- Produces:
+  - mjhs_grad_ccr_2024.png — Graduation & CCR
+  - mjhs_educator_experience_2024.png — Experienced vs novice staff
+- Guardrail: if an ALSDE export is statewide-only (000/0000), the notebook prompts to re-export with district/school rows.
 
-**Tip (Windows paths):** use forward slashes (`C:/Users/...`) or raw strings (`r"C:\Users\..."`).
+Reproducibility
+---------------
+requirements.txt
+- pandas
+- requests
+- matplotlib
+- jupyter
 
+- All charts are generated from code; CSVs are committed for verification.
+- Each chart includes a clear title; data vintage is noted in the README and commits.
 
----
+Sources
+-------
+- Zillow Research — ZHVI (ZIP level), latest month labeled on chart.
+- Alabama State Department of Education — Supporting Data (2024), “All” groups for MJHS.
+- U.S. Census Bureau — ACS 5-year Data Profile (2023) via API (ZCTA).
+- U.S. Census Bureau — Decennial Census 2010 & 2020 (optional growth add-on).
 
-## Notebook behavior
+Notes & disclaimers
+-------------------
+- ZIP/ACS comparisons use ZCTAs (35091/35116/35180); these can extend beyond city limits.
+- Public datasets occasionally revise prior periods; charts reflect the latest available at run time.
+- This repo aims to share public facts with sources. Corrections or improvements are welcome via Issues/PRs.
 
-### `notebooks/Kimberly_HomeValuations.ipynb`
-- Loads Zillow ZHVI ZIP-level CSV(s) from `data/raw/`
-- Builds tidy monthly time series for selected ZIPs (35091/35116/35180)
-- **Chart:** `charts/home_values_35091_35116_35180_2000_2025.png`  
-  Footer includes source/month and notes “ZIP-level (not city boundary)”
-
-### `notebooks/Kimberly_EduStats.ipynb`
-- Loads **Accountability** (+ optional CCR/Grad) and **Educator** CSVs from `data/raw/`
-- Filters to **System = Jefferson County** & **School = Mortimer Jordan High School** and **All** groups (All Grade/Gender/Race/Ethnicity/Sub Pop)
-- **Charts:**
-  - `charts/mjhs_grad_ccr_2024.png` (Graduation & CCR)
-  - `charts/mjhs_educator_experience_2024.png` (experienced vs novice)
-- **Derived CSVs** saved to `data/processed/` for sharing
-
-**Built-in guardrail:** If a file is statewide-only (000/0000), the notebook prints a clear instruction to re-export.
-
-
----
-
-## Bootstrap cell
-
-```python
-# Cell 0 — bootstrap folders & paths (safe to re-run)
-from pathlib import Path
-import shutil
-
-ROOT = Path.cwd().resolve()
-DATA_RAW = ROOT / "data" / "raw"
-DATA_PROCESSED = ROOT / "data" / "processed"
-CHARTS = ROOT / "charts"
-OUTPUTS = ROOT / "outputs"
-
-for p in [DATA_RAW, DATA_PROCESSED, CHARTS, OUTPUTS]:
-    p.mkdir(parents=True, exist_ok=True)
-
-# Optional: clean previous outputs for a fresh build
-# for p in [DATA_PROCESSED, CHARTS, OUTPUTS]:
-#     for f in p.glob("*"):
-#         try: f.unlink()
-#         except IsADirectoryError: shutil.rmtree(f)
-```
-
-### Small helper to stamp chart footers
-```python
-def add_footer(ax, text):
-    ax.figure.text(0.01, 0.01, text, ha="left", va="bottom", fontsize=9, alpha=0.8)
-
-# Example:
-# add_footer(plt.gca(), "Source: Zillow ZHVI • Jul 2025 • ZIP-level (35091/35116/35180)")
-```
-
-
----
-
-## Reproducibility
-
-- **requirements.txt**
-  ```
-  pandas
-  matplotlib
-  jupyter
-  ```
-- Each chart shows **source + date** in the footer.  
-- Notebooks write **processed CSVs** so reviewers can check numbers without large raw files.  
-- Commit history documents any updates/revisions to methods/inputs.
-
-
----
-
-## Notes & disclaimers
-
-- **ZIP vs City:** Housing trends use ZIPs (35091/35116/35180). ZIPs may extend beyond city limits.  
-- **Statewide vs School files:** ALSDE statewide-only exports don’t include MJHS rows; export All Systems/Schools or Jefferson County/MJHS.  
-- **Estimates:** Public datasets can update and revise prior periods; charts reflect the latest available at run time.  
-- **Neutral framing:** This repository shares public facts with sources; corrections or additional sources are welcome via issues/PRs.
-
-
----
-
-## Sources
-
-- **Zillow Research** — ZHVI (ZIP level), latest month labeled on chart  
-- **Alabama State Department of Education** — Supporting Data (2024), “All” groups (Accountability; Educator)  
-- **(Planned)** U.S. Census Bureau — ACS 5-year (DP03/DP04/DP05)
-
-
----
-
-## License
-
-- **Code & derived CSVs:** MIT  
-- **Charts & README text:** CC BY 4.0  
-- **Raw datasets:** Follow original source terms; raw files live in `data/raw/` and are **not** committed.
-
-
----
-
-## Contact
-
-Issues and pull requests welcome.
-
-**Alex McAnnally**  
-www.amcannally.cloud • 205-936-5024
+License
+-------
+- Code & derived CSVs: MIT
+- Charts & text: CC BY 4.0
+- Raw source data follows original provider terms.
