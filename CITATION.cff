@@ -6,9 +6,9 @@ authors:
   - family-names: McAnnally
     given-names: Alex
 license: MIT
-version: "v1.0.0"
+version: "v1.0.3"
 date-released: "2025-08-21"
-repository-code: https://github.com/yourusername/kimberly-public-data-snapshot
+repository-code: https://github.com/amcanna1ly/KimberlyAL_AnalyticsDataSnapshot
 keywords:
   - Kimberly AL
   - Zillow ZHVI
