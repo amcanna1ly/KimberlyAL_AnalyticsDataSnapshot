@@ -74,7 +74,6 @@ Then open:
 KimberlyAL_AnalyticsDataSnapshot/
 ├─ README.md
 ├─ requirements.txt
-├─ acs_zip_snapshot.py                # ACS API script (creates CSVs + PNGs)
 ├─ charts/                            # generated outputs (safe to commit)
 ├─ data/
 │  ├─ raw/                            # optional if using flat ALSDE/Zillow files
@@ -82,7 +81,8 @@ KimberlyAL_AnalyticsDataSnapshot/
 └─ notebooks/
    ├─ Kimberly_HomeValuations.ipynb
    ├─ Kimberly_EduStats.ipynb
-   └─ ALSDE_SchoolComparison-OTMvsNJ.ipynb   # MJHS vs Vestavia HS vs Homewood HS
+   ├─ ALSDE_SchoolComparison-OTMvsNJ.ipynb   # MJHS vs Vestavia HS vs Homewood HS
+   └─ Kimberly_ACS_Snapshot.ipynb                # ACS API script (creates CSVs + PNGs)
 ```
 
 ---
