@@ -1,4 +1,4 @@
-# Kimberly, AL — Public Data Snapshot
+# Kimberly, AL - Public Data Snapshot
 
 Neutral, replicable charts from public datasets so neighbors can see Kimberly’s trajectory.
 
