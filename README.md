@@ -25,6 +25,60 @@ _Last updated: **Aug 23, 2025**_
 
 ---
 
+## Repository Layout
+
+```
+charts/
+    ├── acs_2023_profile_ZCTA_35091_35116_35180.csv
+    ├── acs_demographics_compare_35091_35116_35180.csv
+    ├── acs_home_value.png
+    ├── acs_income.png
+    ├── acs_pop.png
+    ├── acs_unemployment.png
+    ├── alsde_compare_MJHS_Vestavia_Homewood.csv
+    ├── HomeValueTrend.png
+    ├── k12_ccr_cohort.png
+    ├── k12_ccr_rate.png
+    ├── k12_chronic_abs.png
+    ├── k12_econ_disadv.png
+    ├── k12_enrollment.png
+    ├── k12_experienced.png
+    ├── k12_grad_rate.png
+    ├── k12_growth_overall.png
+    ├── k12_growth.png
+    ├── k12_novice.png
+    ├── k12_prof_avg.png
+    ├── k12_scorecard_MJHS_Vestavia_Homewood.png
+    ├── MJHS_EduCredsBreakdown.png
+    └── MJHS_Graduated_CCR.png
+data/
+    ├── processed/
+        ├── Demographics/
+            ├── acs_2023_profile_ZCTA_35091_35116_35180.csv
+            └── acs_demographics_compare_35091_35116_35180.csv
+        ├── Education/
+            ├── alsde_compare_MJHS_Vestavia_Homewood.csv
+            ├── mjhs_acc_kpi.csv
+            └── mjhs_educator_credentials.csv
+        └── Zillow_Home/
+            └── zhvi_latest_snapshot.csv
+    └── raw/
+        ├── Education.7z
+        └── Zillow_Home.7z
+notebooks/
+    ├── ALSDE_SchoolComparison-OTMvsNJ.ipynb
+    ├── Kimberly_ACS_Snapshot.ipynb
+    ├── Kimberly_EduStats.ipynb
+    └── Kimberly_HomeValuations.ipynb
+CITATION.cff
+gitignore
+README.md
+requirements.txt
+SOURCES.md
+```
+
+---
+
 ## Quickstart
 
 ### 1) Environment
