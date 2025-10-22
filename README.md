@@ -25,7 +25,50 @@ _Last updated: **Aug 23, 2025**_
 
 ---
 
-## Repository Layout
+## Quickstart
+
+### 1) Environment
+
+**macOS/Linux**
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Windows PowerShell**
+```powershell
+py -m venv .venv
+. .venv/Scripts/Activate.ps1
+pip install -r requirements.txt
+```
+
+**(Optional) Census API key** — avoids rate limits:
+```bash
+# macOS/Linux
+export CENSUS_KEY=YOUR_KEY_HERE
+
+# Windows PowerShell
+$env:CENSUS_KEY="YOUR_KEY_HERE"
+```
+
+### 2) Generate ACS ZIP snapshot (CSV + charts)
+```bash
+python acs_zip_snapshot.py   --zips 35091 35116 35180   --labels "Kimberly (35091),Morris (35116),Warrior (35180)"   --outdir charts
+```
+
+### 3) Open notebooks (optional)
+```bash
+pip install jupyter
+jupyter notebook
+```
+Then open:
+- `notebooks/Kimberly_HomeValuations.ipynb`
+- `notebooks/Kimberly_EduStats.ipynb`
+- `notebooks/ALSDE_SchoolComparison-OTMvsNJ.ipynb`  ← **new**
+
+---
+
+## Repository layout
 
 ```
 charts/
@@ -75,68 +118,6 @@ gitignore
 README.md
 requirements.txt
 SOURCES.md
-```
-
----
-
-## Quickstart
-
-### 1) Environment
-
-**macOS/Linux**
-```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-**Windows PowerShell**
-```powershell
-py -m venv .venv
-. .venv/Scripts/Activate.ps1
-pip install -r requirements.txt
-```
-
-**(Optional) Census API key** — avoids rate limits:
-```bash
-# macOS/Linux
-export CENSUS_KEY=YOUR_KEY_HERE
-
-# Windows PowerShell
-$env:CENSUS_KEY="YOUR_KEY_HERE"
-```
-
-### 2) Generate ACS ZIP snapshot (CSV + charts)
-```bash
-python acs_zip_snapshot.py   --zips 35091 35116 35180   --labels "Kimberly (35091),Morris (35116),Warrior (35180)"   --outdir charts
-```
-
-### 3) Open notebooks (optional)
-```bash
-pip install jupyter
-jupyter notebook
-```
-Then open:
-- `notebooks/Kimberly_HomeValuations.ipynb`
-- `notebooks/Kimberly_EduStats.ipynb`
-- `notebooks/ALSDE_SchoolComparison-OTMvsNJ.ipynb`  ← **new**
-
----
-
-## Repository layout
-
-```
-KimberlyAL_AnalyticsDataSnapshot/
-├─ README.md
-├─ requirements.txt
-├─ charts/                            # generated outputs (safe to commit)
-├─ data/
-│  ├─ raw/                            # optional if using flat ALSDE/Zillow files
-│  └─ processed/                      # tidy CSVs written by notebooks
-└─ notebooks/
-   ├─ Kimberly_HomeValuations.ipynb
-   ├─ Kimberly_EduStats.ipynb
-   ├─ ALSDE_SchoolComparison-OTMvsNJ.ipynb   # MJHS vs Vestavia HS vs Homewood HS
-   └─ Kimberly_ACS_Snapshot.ipynb                # ACS API script (creates CSVs + PNGs)
 ```
 
 ---
